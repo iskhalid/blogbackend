@@ -9,11 +9,12 @@ const fs = require("fs");
 const uploadOnCloudinary = require("./cloudinary.js");
 const Blog = require("./models/Blog");
 const Scouting = require("./models/Scouting");
+// const cors = require('cors')zzz
 require("dotenv").config();
 
 const port = process.env.PORT || 4000;
 
-app.use(cors({ credentials: true, origin: "https://malemodellingface.netlify.app/" }));
+app.use(cors({ credentials: true, origin: "*" }));
 app.use(express.json());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
@@ -211,7 +212,7 @@ app.get("/scouting", async (req, res) => {
   );
 });
 
-app.listen(()=>{
+app.listen(port,()=>{
   console.log("server running at",port)
 });
 //
