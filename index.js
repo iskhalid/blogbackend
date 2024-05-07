@@ -11,11 +11,17 @@ const Blog = require("./models/Blog");
 const Scouting = require("./models/Scouting");
 require("dotenv").config();
 
-app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
+const port = process.env.PORT || 4000;
+
+app.use(cors({ credentials: true, origin: "https://malemodellingface.netlify.app/" }));
 app.use(express.json());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
 mongoose.connect(process.env.MONGODB_URL);
+
+app.get("/",(req,res) => {
+  res.json({message:"welcome"})
+})
 
 app.post("/post", uploadMiddleware.single("file"), async (req, res) => {
   const { originalname, path } = req.file;
@@ -205,5 +211,7 @@ app.get("/scouting", async (req, res) => {
   );
 });
 
-app.listen(4000);
+app.listen(()=>{
+  console.log("server running at",port)
+});
 //
