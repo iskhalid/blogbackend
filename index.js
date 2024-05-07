@@ -14,7 +14,11 @@ require("dotenv").config();
 
 const port = process.env.PORT || 4000;
 
-app.use(cors({ credentials: true, origin: "https://blogmodelling.vercel.app" }));
+const allowedOrigins = ['https://blogmodelling.vercel.app', 'http://localhost:5173'];
+
+
+
+app.use(cors({ credentials: true, origin: allowedOrigins }));
 app.use(express.json());
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
